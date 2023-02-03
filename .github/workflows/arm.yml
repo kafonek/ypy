@@ -32,7 +32,7 @@ jobs:
             pyenv install ${{ matrix.python-version }}
 
           env: |
-            PYENV_ROOT="$HOME/.pyenv"
+            PYENV_ROOT: "$HOME/.pyenv"
           run: |
             uname -a
             source "$HOME/.cargo/env"
