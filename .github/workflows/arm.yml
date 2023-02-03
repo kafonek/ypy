@@ -28,14 +28,11 @@ jobs:
             apt-get update
             apt-get install -y curl software-properties-common
             curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-            curl https://pyenv.run | bash
             
             add-apt-repository ppa:deadsnakes/ppa
             apt update
             apt install python{{ matrix.python-version }}
 
-          env: |
-            PYENV_ROOT: "$HOME/.pyenv"
           run: |
             uname -a
             source "$HOME/.cargo/env"
