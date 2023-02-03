@@ -41,9 +41,5 @@ jobs:
             source "$HOME/.cargo/env"
             rustup -V
 
-            pyenv -v
-            eval "$(pyenv init -)"
-            pyenv global ${{ matrix.python-version }}
-
             python -V
             
