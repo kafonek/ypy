@@ -21,7 +21,7 @@ jobs:
         name: Run commands
         id: runcmd
         with:
-          arch: armv7
+          arch: aarch64
           distro: ubuntu_latest
           run: |
             uname -a
