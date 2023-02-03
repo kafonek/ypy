@@ -31,7 +31,7 @@ jobs:
             
             add-apt-repository ppa:deadsnakes/ppa
             apt update
-            apt install python{{ matrix.python-version }}
+            apt install python3.9
 
           run: |
             uname -a
