@@ -28,7 +28,19 @@ jobs:
             apt-get update
             apt-get install -y curl
             curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+            curl https://pyenv.run | bash
+            pyenv install ${{ matrix.python-version }}
+
+          env: |
+            PYENV_ROOT="$HOME/.pyenv"
           run: |
             uname -a
             source "$HOME/.cargo/env"
             rustup -V
+
+            pyenv -v
+            eval "$(pyenv init -)"
+            pyenv global ${{ matrix.python-version }}
+
+            python -V
+            
