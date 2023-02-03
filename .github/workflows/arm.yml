@@ -1,8 +1,9 @@
 name: ARM
 
 on:
-  release:
-    types: [push]
+  push:
+    branches:
+      - arm_wheel
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -24,4 +25,3 @@ jobs:
           distro: ubuntu_latest
           run: |
             uname -a
-            
