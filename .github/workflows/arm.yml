@@ -40,4 +40,8 @@ jobs:
 
             python3 -V
             python3.9 -V
+
+            python3.9 -m pip install maturin
+
+            python3.9 -c "import maturin; print(maturin); print(maturin.__version__)"
             
