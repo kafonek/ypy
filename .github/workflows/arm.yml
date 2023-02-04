@@ -43,13 +43,14 @@ jobs:
 
             python3.9 -m venv venv
             source venv/bin/activate
+            which python
             pip --version
-            
+
+            pip install --upgrade pip            
             pip install maturin
 
             which maturin
             maturin --version
             
-
-            python -c "import maturin; print(maturin); print(maturin.__version__)"
+            maturin build --target aarch64-unknown-linux-gnu --release --strip --find-interpreter
             
