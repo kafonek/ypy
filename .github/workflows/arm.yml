@@ -10,47 +10,30 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  arm64:
-    runs-on: ubuntu-18.04
+  linux-cross:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.9"]
+        python:
+          - '3.7'
+          - '3.8'
+          - '3.9'
+          - '3.10'
+          - '3.11'
+        target: [aarch64, armv7, s390x, ppc64le]
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: uraimo/run-on-arch-action@v2
-        name: Run commands
-        id: runcmd
-        with:
-          arch: aarch64
-          distro: ubuntu_latest
-          githubToken: ${{ github.token }}
-          install: |
-            apt-get update
-            apt-get install -y curl software-properties-common
-            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-            
-            add-apt-repository ppa:deadsnakes/ppa
-            apt-get update
-            apt-get install -y python3.9-venv
+    - uses: actions/checkout@v3
+    - name: Build Wheels
+      uses: PyO3/maturin-action@v1
+      with:
+        target: ${{ matrix.target }}
+        manylinux: auto
+        args: -i ${{ matrix.python }} --release --out dist --no-default-features --features=extension-module  # disable mimallocator
 
-          run: |
-            uname -a
-            source "$HOME/.cargo/env"
-            rustup -V
-
-            python3 -V
-            python3.9 -V
-
-            python3.9 -m venv venv
-            source venv/bin/activate
-            which python
-            pip --version
-
-            pip install --upgrade pip            
-            pip install maturin
-
-            which maturin
-            maturin --version
-            
-            maturin build --target aarch64-unknown-linux-gnu --release --strip --find-interpreter
+    - name: Upload wheels
+      uses: actions/upload-artifact@v3
+      with:
+        name: wheels
+        path: dist
             
