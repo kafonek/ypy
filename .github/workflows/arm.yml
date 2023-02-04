@@ -31,7 +31,7 @@ jobs:
             
             add-apt-repository ppa:deadsnakes/ppa
             apt-get update
-            apt-get install -y python3.9-pip
+            apt-get install -y python3.9-venv
 
           run: |
             uname -a
@@ -41,7 +41,15 @@ jobs:
             python3 -V
             python3.9 -V
 
-            python3.9 -m pip install maturin
+            python3.9 -m venv venv
+            source venv/bin/activate
+            pip --version
+            
+            pip install maturin
 
-            python3.9 -c "import maturin; print(maturin); print(maturin.__version__)"
+            which maturin
+            maturin --version
+            
+
+            python -c "import maturin; print(maturin); print(maturin.__version__)"
             
