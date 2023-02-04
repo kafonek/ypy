@@ -29,7 +29,7 @@ jobs:
       with:
         target: ${{ matrix.target }}
         manylinux: auto
-        args: -i ${{ matrix.python }} --release --out dist --no-default-features --features=extension-module  # disable mimallocator
+        args: -i ${{ matrix.python }} --release --out dist
 
     - name: Upload wheels
       uses: actions/upload-artifact@v3
