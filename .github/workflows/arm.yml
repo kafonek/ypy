@@ -38,5 +38,5 @@ jobs:
             source "$HOME/.cargo/env"
             rustup -V
 
-            python -V
+            python3 -V
             
