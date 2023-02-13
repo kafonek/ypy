@@ -1,8 +1,11 @@
 name: Build and Release
 
 on:
+  push:
+    branches:
+      - build_aarch64
   release:
-    types: [published, push]
+    types: [published]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
